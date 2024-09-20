@@ -6,11 +6,11 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:43:38 by erian             #+#    #+#             */
-/*   Updated: 2024/09/20 17:58:09 by erian            ###   ########.fr       */
+/*   Updated: 2024/09/20 21:15:24 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.c"
+#include "pipex.h"
 
 static void	free_matrix(char **matrix)
 {

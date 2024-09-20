@@ -6,7 +6,7 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:40:31 by erian             #+#    #+#             */
-/*   Updated: 2024/09/20 18:01:24 by erian            ###   ########.fr       */
+/*   Updated: 2024/09/20 21:17:07 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	get_cmd(char *av, char ***cmd)
 	return (1);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **ep)
 {
 	t_pipex	*data;
 
