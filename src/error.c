@@ -6,7 +6,7 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:43:38 by erian             #+#    #+#             */
-/*   Updated: 2024/09/20 21:15:24 by erian            ###   ########.fr       */
+/*   Updated: 2024/09/21 11:52:07 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-static void	error_free(t_pipex *data)
+void	error_free(t_pipex *data)
 {
 	if (!data)
 		return ;
@@ -38,7 +38,7 @@ static void	error_free(t_pipex *data)
 
 void	print_exit(t_pipex *data, char *str)
 {
-	ft_printf(str);
+	ft_printf("%s", str);
 	error_free(data);
 	exit(1);
 }

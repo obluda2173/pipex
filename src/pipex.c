@@ -6,11 +6,37 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:40:31 by erian             #+#    #+#             */
-/*   Updated: 2024/09/20 21:17:07 by erian            ###   ########.fr       */
+/*   Updated: 2024/09/21 14:25:40 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static int	get_cmd(char *av, char ***cmd)
+{
+	char	*tmp;
+	char	*full_path;
+
+	*cmd = ft_split(av, ' ');
+	if (!*cmd)
+		return (0);
+	tmp = (*cmd)[0];
+	full_path = ft_strjoin("/bin/", tmp);
+	if (access(full_path, X_OK) == 0)
+	{
+		(*cmd)[0] = full_path;
+        return 1;
+	}
+	free(full_path);
+	full_path = ft_strjoin("/usr/bin/", tmp);
+	if (access(full_path, X_OK) == 0)
+	{
+		(*cmd)[0] = full_path;
+        return 1;
+	}
+	free(full_path);
+	return (0);
+}
 
 static void	parse(char **av, t_pipex *data)
 {
@@ -22,35 +48,18 @@ static void	parse(char **av, t_pipex *data)
 		print_exit(data, "Command allocation error\n");
 }
 
-static int	get_cmd(char *av, char ***cmd)
-{
-	char	*tmp;
-
-	*cmd = ft_split(av, ' ');
-	if (!*cmd)
-		return (0);
-	tmp = strdup((*cmd)[0]);
-	free((*cmd)[0]);
-	(*cmd)[0] = ft_strjoin("/bin/", tmp);
-	free(tmp);
-	return (1);
-}
-
 int	main(int ac, char **av, char **ep)
 {
 	t_pipex	*data;
 
 	if (ac != 5)
-	{
-		ft_printf("Incorect amount of arguments\n");
-		exit(1);
-	}
+		print_exit(NULL, "Incorect amount of arguments\n");
 	data = malloc(sizeof(t_pipex));
 	if (!data)
-	{
-		ft_printf("Memory allocation error\n");
-		exit(1);
-	}
+		print_exit(NULL, "Memory allocation error\n");
 	parse(av, data);
-	check(data);
+	check_start(data);
+	pipex(data, ep);
+	error_free(data);
+	return (0);
 }

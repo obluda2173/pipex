@@ -1,4 +1,4 @@
-SRC			=	src/*.c
+SRC			=	$(wildcard src/*.c)
 LIBFTDIR	=	include/Libft
 PRINTFDIR	=	include/ft_printf
 
