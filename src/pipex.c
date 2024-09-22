@@ -6,7 +6,7 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:40:31 by erian             #+#    #+#             */
-/*   Updated: 2024/09/22 11:08:55 by erian            ###   ########.fr       */
+/*   Updated: 2024/09/22 11:19:23 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	get_cmd(char *av, char ***cmd)
 	if (access(full_path, X_OK) == 0)
 	{
 		(*cmd)[0] = full_path;
+		free(tmp);
 		return (1);
 	}
 	free(full_path);
@@ -32,6 +33,7 @@ static int	get_cmd(char *av, char ***cmd)
 	if (access(full_path, X_OK) == 0)
 	{
 		(*cmd)[0] = full_path;
+		free(tmp);
 		return (1);
 	}
 	free(full_path);
