@@ -6,13 +6,13 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:43:38 by erian             #+#    #+#             */
-/*   Updated: 2024/09/22 11:14:47 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:30:50 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	free_matrix(char **matrix)
+void	free_matrix(char **matrix)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ static void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	error_free(t_pipex *data)
+void	free_all(t_pipex *data)
 {
 	if (!data)
 		return ;
@@ -38,7 +38,7 @@ void	error_free(t_pipex *data)
 
 void	print_exit(t_pipex *data, char *str)
 {
-	ft_printf("%s", str);
-	error_free(data);
+	ft_putstr_fd(str, 1);
+	free_all(data);
 	exit(1);
 }
