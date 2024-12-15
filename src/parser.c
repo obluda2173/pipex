@@ -6,7 +6,7 @@
 /*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:37:16 by erian             #+#    #+#             */
-/*   Updated: 2024/12/13 12:39:01 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/15 15:00:18 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*get_paths(char **ep)
 	i = 0;
 	if (!ep)
 		return (NULL);
-	while (ep[i])
+	while (ep[i] != NULL)
 	{
 		if (ft_strncmp(ep[i], "PATH=", 5) == 0)
 			return (ep[i] + 5);
@@ -28,32 +28,46 @@ static char	*get_paths(char **ep)
 	return (NULL);
 }
 
-static char	*find_path(char *cmd, char **ep)
+static char	*search_in_paths(char *cmd, char **paths)
 {
-	char	**paths;
-	char	*path;
-	char	*part_path;
 	int		i;
+	char	*part_path;
+	char	*final_path;
 
-	paths = ft_split(get_paths(ep), ':');
-	if (!cmd || !paths)
-		return (NULL);
 	i = 0;
-	while (paths[i])
+	while (paths[i] != NULL)
 	{
 		part_path = ft_strjoin(paths[i], "/");
-		path = part_path ? ft_strjoin(part_path, cmd) : NULL;
-		free(part_path);
-		if (path && access(path, F_OK) == 0)
+		if (!part_path)
 		{
-			free_matrix(paths);
-			return (path);
+			i++;
+			continue ;
 		}
-		free(path);
+		final_path = ft_strjoin(part_path, cmd);
+		free(part_path);
+		if (final_path && access(final_path, F_OK) == 0)
+			return (final_path);
+		free(final_path);
 		i++;
 	}
-	free_matrix(paths);
 	return (NULL);
+}
+
+static char	*find_path(char *cmd, char **ep)
+{
+	char	*path_env;
+	char	**paths;
+	char	*final_path;
+
+	path_env = get_paths(ep);
+	if (!cmd || !path_env)
+		return (NULL);
+	paths = ft_split(path_env, ':');
+	if (!paths)
+		return (NULL);
+	final_path = search_in_paths(cmd, paths);
+	free_matrix(paths);
+	return (final_path);
 }
 
 static int	get_cmd(char *av, char ***cmd, char **ep)
