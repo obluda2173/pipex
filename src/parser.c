@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
+/*   By: erian <erian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:37:16 by erian             #+#    #+#             */
-/*   Updated: 2024/12/15 15:00:18 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/21 12:08:39 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static int	get_cmd(char *av, char ***cmd, char **ep)
 		return (1);
 	}
 	free_matrix(*cmd);
+	*cmd = NULL;
 	return (0);
 }
 

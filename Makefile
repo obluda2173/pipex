@@ -4,7 +4,7 @@
 NAME		=	pipex
 
 # Compiler and flags
-CC 			=	@cc
+CC 			=	@gcc
 RM			=	@rm -f
 FLAGS		=	-Wall -Wextra -Werror
 
@@ -16,12 +16,11 @@ SRC			=	$(SRCDIR)/error.c \
 
 INCLDIR		=	include
 LIBFTDIR	=	$(INCLDIR)/Libft
-PRINTFDIR	=	$(INCLDIR)/ft_printf
 
 OBJS		=	$(SRC:.c=.o)
 
 # Libraries
-LIBS		=	$(LIBFTDIR)/libft.a $(PRINTFDIR)/libftprintf.a
+LIBS		=	$(LIBFTDIR)/libft.a
 
 # **************************************************************************** #
 # COLORS                                                                       #
@@ -44,20 +43,17 @@ S_NAME      =   @echo "$(BLUE)Full clean completed$(COLOR)"
 all:		$(NAME)
 $(NAME):	$(OBJS)
 			@make -sC $(LIBFTDIR)
-			@make -sC $(PRINTFDIR)
 			$(CC) $(FLAGS) $(OBJS) $(LIBS) -o $(NAME)
 			$(SUCCESS)
 
 clean:
 			$(RM) $(OBJS)
 			@make --no-print-directory -sC $(LIBFTDIR) clean
-			@make --no-print-directory -sC $(PRINTFDIR) clean
 			$(S_OBJS)
 
 fclean:		clean
 			$(RM) $(NAME)
 			@make --no-print-directory -sC $(LIBFTDIR) fclean
-			@make --no-print-directory -sC $(PRINTFDIR) fclean
 			$(S_NAME)
 
 re: 		fclean all

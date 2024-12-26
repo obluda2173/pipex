@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
+/*   By: erian <erian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:43:38 by erian             #+#    #+#             */
-/*   Updated: 2024/12/12 16:30:50 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/21 12:04:35 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,26 @@ void	free_all(t_pipex *data)
 {
 	if (!data)
 		return ;
-	free(data->file1);
-	free(data->file2);
-	free_matrix(data->cmd1);
-	free_matrix(data->cmd2);
+	if (data->file1)
+	{
+		free(data->file1);
+		data->file1 = NULL;
+	}
+	if (data->file2)
+	{
+		free(data->file2);
+		data->file2 = NULL;
+	}
+	if (data->cmd1)
+	{
+		free_matrix(data->cmd1);
+		data->cmd1 = NULL;
+	}
+	if (data->cmd2)
+	{
+		free_matrix(data->cmd2);
+		data->cmd2 = NULL;
+	}
 	free(data);
 }
 

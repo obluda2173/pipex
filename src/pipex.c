@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
+/*   By: erian <erian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:40:31 by erian             #+#    #+#             */
-/*   Updated: 2024/12/12 16:35:44 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/22 10:36:19 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ int	main(int ac, char **av, char **ep)
 		data = malloc(sizeof(t_pipex));
 		if (!data)
 			print_exit(NULL, "Memory allocation error\n");
+		data->file1 = NULL;
+		data->file2 = NULL;
+		data->cmd1 = NULL;
+		data->cmd2 = NULL;
+		data->fd[0] = -1;
+		data->fd[1] = -1;
 		parse(av, data, ep);
 		check_start(data);
 		pipex(data, ep);
@@ -101,3 +107,31 @@ int	main(int ac, char **av, char **ep)
 		print_exit(NULL, "Incorect amount of arguments\n");
 	return (0);
 }
+
+/*
+CAT AND GREP - writes the line containing "Hello" into outfile
+valgrind --leak-check=full ./pipex infile "cat" "grep Hello" outfile
+<infile cat | grep Hello> outfile
+
+LS AND WC - counts the number of files (+1)
+valgrind --leak-check=full ./pipex infile "ls -l" "wc -l" outfile
+<infile ls -l | wc -l> outfile
+
+CAT AND SORT - sorts lines in ascending order of the infile into outfile
+valgrind --leak-check=full ./pipex infile "cat" "sort" outfile
+<infile cat | sort> outfile
+
+CAT AND WC -W - writes the number of words in infile into outfile
+valgrind --leak-check=full ./pipex infile "cat" "wc -w" outfile
+<infile cat | wc -w> outfile
+
+INCORRECT INPUT
+valgrind --leak-check=full ./pipex infile "" "" outfile
+
+valgrind --leak-check=full ./pipex non_existing_file "cat" "sort" outfile
+
+touch restricted_file && chmod 000 restricted_file
+valgrind --leak-check=full ./pipex restricted_file "cat" "sort" outfile
+
+valgrind --leak-check=full ./pipex infile "cat" "ls" 
+*/

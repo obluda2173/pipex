@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erian <erian@student.42>                   +#+  +:+       +#+        */
+/*   By: erian <erian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:42:09 by erian             #+#    #+#             */
-/*   Updated: 2024/12/13 12:34:13 by erian            ###   ########.fr       */
+/*   Updated: 2024/12/21 12:20:46 by erian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 # include <sys/types.h>
 # include "../include/Libft/libft.h"
-# include "../include/ft_printf/ft_printf.h"
 
 typedef struct s_pipex
 {
